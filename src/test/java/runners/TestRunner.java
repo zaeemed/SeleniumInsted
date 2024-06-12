@@ -8,7 +8,7 @@ import io.cucumber.junit.CucumberOptions;
 @CucumberOptions(
         features = "src/test/resources/features",
         glue = {"steps"},
-        tags = "@PatientGuestRequest",
+        tags = "@CaregiverGuestRequest",
         plugin = {"pretty", "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm",
                     "html:target/cucumber-reports.html",
                     "json:target/cucumber-reports.json"},

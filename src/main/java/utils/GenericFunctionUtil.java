@@ -12,9 +12,10 @@ import java.util.Random;
 
 
 public class GenericFunctionUtil {
-
-    public static void waitInvisibility(WebDriver driver) {
+    private static final Random random = new Random();
+    public static void waitInvisibility(WebDriver driver) throws InterruptedException {
         int time = 60;
+        Thread.sleep(3000);
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(time));
         wait.pollingEvery(Duration.ofMillis(1000));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("ngx-spinner-overlay")));
@@ -48,9 +49,9 @@ public class GenericFunctionUtil {
         dropdown.selectByVisibleText(value);
     }
     public static void clickEnter(WebElement element) throws InterruptedException {
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         element.sendKeys(Keys.DOWN);
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         element.sendKeys(Keys.ENTER);
     }
 
@@ -124,5 +125,39 @@ public class GenericFunctionUtil {
         }
 
         return sb.toString();
+    }
+
+    public static String generateNANPAPhoneNumber(){
+        int areaCode = generateValidCode(true);
+        int exchangeCode = generateValidCode(false);
+        int subscriberNumber = generateSubscriberNumber();
+
+        return String.format("(%03d) %03d-%04d", areaCode, exchangeCode, subscriberNumber);
+    }
+
+    private static int generateValidCode(boolean isAreaCode) {
+        int firstDigit, secondDigit, thirdDigit;
+
+        while (true) {
+            firstDigit = random.nextInt(8) + 2; // 2 to 9
+            secondDigit = random.nextInt(9); // 0 to 8
+            thirdDigit = random.nextInt(10); // 0 to 9
+
+            if (isAreaCode) {
+                if ((secondDigit == 7 && firstDigit == 3) ||
+                        (secondDigit == 6 && firstDigit == 9) ||
+                        (secondDigit == thirdDigit)) continue;
+            } else {
+                if (secondDigit == 1 && thirdDigit == 1) continue;
+            }
+
+            break;
+        }
+
+        return firstDigit * 100 + secondDigit * 10 + thirdDigit;
+    }
+
+    private static int generateSubscriberNumber() {
+        return random.nextInt(9000) + 1000; // 1000 to 9999
     }
 }

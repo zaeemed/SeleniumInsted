@@ -5,10 +5,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.WebDriver;
-import pages.PatientPortal.AddressPage;
-import pages.PatientPortal.RequestVisitPage;
-import pages.PatientPortal.ThankYouPage;
-import pages.PatientPortal.WelcomePage;
+import pages.PatientPortal.*;
 import org.junit.Assert;
 import utils.GenericFunctionUtil;
 
@@ -19,6 +16,7 @@ public class StepDefinitions {
     private AddressPage addressPage;
     private RequestVisitPage requestVisitPage;
     private ThankYouPage thankYouPage;
+    private PatientInformationPage patientInformationPage;
 
 
     @Given("User is on welcome screen")
@@ -49,19 +47,23 @@ public class StepDefinitions {
         addressPage.enterAddress(address);
     }
 
-    @Then("User is on Request A Visit screen")
-    public void requestAVisitScreen() {
+    @Then("User is on {string} screen")
+    public void requestAVisitScreen(String screenName) {
         requestVisitPage = new RequestVisitPage(driver);
         String heading = requestVisitPage.getHeadingText();
-        Assert.assertEquals("User is not on Request A Visit Page, Assertion failed", "Request A Visit", heading);
+        Assert.assertEquals(String.format("User is not on %s Page, Assertion failed", screenName), screenName, heading);
         String message = requestVisitPage.getMessageText();
         String text = "Great! You are in our service area. You can request a visit and we will get back to you during hours of operation from 8 AM to 10 PM.";
         Assert.assertEquals("Message is different, Assertion failed", text, message);
     }
 
-    @And("User enters patient details")
-    public void userEntersPatientDetails() throws InterruptedException {
+    @And("User enters {string} details")
+    public void userEntersPatientDetails(String persona) throws InterruptedException {
         requestVisitPage.enterDetails();
+        if(persona.contains("caregiver")){
+            patientInformationPage = new PatientInformationPage(driver);
+            patientInformationPage.enterCaregiverDetails();
+        }
     }
 
     @And("User clicks on Submit Button")
@@ -76,4 +78,5 @@ public class StepDefinitions {
         String dateOfSRequest = thankYouPage.getDateOfSRequest();
         Assert.assertEquals(String.format("Date of Request is not same as %s , Assertion failed", currentDate), currentDate, dateOfSRequest);
     }
+
 }

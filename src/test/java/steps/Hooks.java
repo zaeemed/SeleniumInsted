@@ -9,25 +9,31 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.io.FileHandler;
+import utils.ConfigLoader;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Hooks {
     private static WebDriver driver;
+    ConfigLoader config = ConfigLoader.getInstance();
 
     @Before
     public void initializeBrowser() {
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/chromedriver.exe");
+
+        if(Objects.equals(config.getProperty("browser"), "chrome")){
+            System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/chromedriver.exe");
 //        WebDriverManager.chromedriver().setup();
 
-        ChromeOptions options = new ChromeOptions();
+            ChromeOptions options = new ChromeOptions();
 //        options.addArguments("--headless");
-        options.addArguments("--ignore-certificate-errors");
-        options.addArguments("--silent");
+            options.addArguments("--ignore-certificate-errors");
+            options.addArguments("--silent");
 
-        driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
+            driver = new ChromeDriver(options);
+            driver.manage().window().maximize();
+        }
     }
 
     @After

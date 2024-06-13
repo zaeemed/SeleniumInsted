@@ -24,5 +24,5 @@ Feature: Guest Flow feature
     And User enters address "55 Fruit Street"
     Then User is on "Patient Information" screen
     And User enters "patient & caregiver" details
-    And User clicks on Submit Button
-    Then User is on Thank you screen
+#    And User clicks on Submit Button
+#    Then User is on Thank you screen

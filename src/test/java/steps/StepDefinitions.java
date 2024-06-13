@@ -7,10 +7,12 @@ import io.cucumber.java.en.When;
 import org.openqa.selenium.WebDriver;
 import pages.PatientPortal.*;
 import org.junit.Assert;
+import utils.ConfigLoader;
 import utils.GenericFunctionUtil;
 
 public class StepDefinitions {
 
+    ConfigLoader config = ConfigLoader.getInstance();
     private final WebDriver driver = Hooks.getDriver();
     private WelcomePage welcomePage;
     private AddressPage addressPage;
@@ -21,7 +23,8 @@ public class StepDefinitions {
 
     @Given("User is on welcome screen")
     public void welcomeScreen() {
-        driver.get("https://insted-patient-qa.vicenna.com/welcome");
+        String patientURL =  config.getProperty("patientURL");
+        driver.get(patientURL);
         welcomePage = new WelcomePage(driver);
     }
 

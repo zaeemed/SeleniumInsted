@@ -3,31 +3,36 @@ package steps;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.io.FileHandler;
+import utils.ConfigLoader;
+import utils.GenericFunctionUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Hooks {
     private static WebDriver driver;
 
     @Before
     public void initializeBrowser() {
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/chromedriver.exe");
-//        WebDriverManager.chromedriver().setup();
 
-        ChromeOptions options = new ChromeOptions();
+        if(Objects.equals(GenericFunctionUtil.getConfigValue("browser"), "chrome")){
+            WebDriverManager.chromedriver().setup();
+            ChromeOptions options = new ChromeOptions();
 //        options.addArguments("--headless");
-        options.addArguments("--ignore-certificate-errors");
-        options.addArguments("--silent");
+            options.addArguments("--ignore-certificate-errors");
+            options.addArguments("--silent");
 
-        driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
+            driver = new ChromeDriver(options);
+            driver.manage().window().maximize();
+        }
     }
 
     @After

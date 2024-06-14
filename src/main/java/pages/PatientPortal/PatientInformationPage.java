@@ -24,8 +24,6 @@ public class PatientInformationPage extends BasePage {
     @FindBy(xpath = "(//input[@id='patientInformation-email-input'])[2]")
     private WebElement CaregiverEmailAddress;
 
-    private String caregiverEmail;
-
     public PatientInformationPage(WebDriver driver) {
         super(driver);
     }
@@ -37,7 +35,7 @@ public class PatientInformationPage extends BasePage {
         String firstName = DOB + "T" + time;
 
         GenericFunctionUtil.onClick(PatientRelation, driver);
-        String relationXpath = GenericFunctionUtil.formatString("//mat-option[.//span[text()=' Mother ']]", "Brother");
+        String relationXpath = GenericFunctionUtil.formatString("//mat-option[.//span[text()='%s']]", " Brother ");
         WebElement relationValue = driver.findElement(By.xpath(relationXpath));
         GenericFunctionUtil.onClick(relationValue, driver);
 
@@ -45,7 +43,8 @@ public class PatientInformationPage extends BasePage {
         GenericFunctionUtil.sendKeys(CgFirstName, firstName, driver);
         String phoneNumber = GenericFunctionUtil.generateNANPAPhoneNumber();
         GenericFunctionUtil.sendKeys(CgPrimaryPhone, phoneNumber, driver);
-        caregiverEmail = lastName + firstName + "@mailinator.com";
+        String caregiverEmail = lastName + firstName + "@mailinator.com";
+        GenericFunctionUtil.setConfigValue("caregiverEmail", caregiverEmail);
         GenericFunctionUtil.sendKeys(CaregiverEmailAddress, caregiverEmail, driver );
     }
 }

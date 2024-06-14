@@ -13,24 +13,23 @@ import java.util.Random;
 
 public class GenericFunctionUtil {
     private static final Random random = new Random();
+    static int timeout = Integer.parseInt(getConfigValue("timeout"));
+
     public static void waitInvisibility(WebDriver driver) throws InterruptedException {
-        int time = 60;
         Thread.sleep(3000);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(time));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
         wait.pollingEvery(Duration.ofMillis(1000));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("ngx-spinner-overlay")));
     }
 
     public static void waitClickable(WebDriver driver, WebElement element) throws InterruptedException {
-        int time = 30;
         Thread.sleep(7000);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(time));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
         wait.pollingEvery(Duration.ofMillis(1000));
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
     public static void waitVisibility(WebDriver driver, WebElement element){
-        int time = 60;
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(time));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
         wait.pollingEvery(Duration.ofMillis(1000));
         wait.until(ExpectedConditions.visibilityOf(element));
     }
@@ -159,5 +158,14 @@ public class GenericFunctionUtil {
 
     private static int generateSubscriberNumber() {
         return random.nextInt(9000) + 1000; // 1000 to 9999
+    }
+
+    public static String getConfigValue(String key){
+        ConfigLoader config = ConfigLoader.getInstance();
+        return config.getProperty(key);
+    }
+
+    public static void setConfigValue(String key, String value){
+        ConfigWriter.writeConfig(key, value);
     }
 }

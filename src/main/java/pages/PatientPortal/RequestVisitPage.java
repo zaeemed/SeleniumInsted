@@ -43,8 +43,6 @@ public class RequestVisitPage extends BasePage {
     @FindBy(className = "sign-in-text")
     private WebElement SignInBtn;
 
-    private String patientEmail;
-
     public RequestVisitPage(WebDriver driver) {
         super(driver);
     }
@@ -61,6 +59,7 @@ public class RequestVisitPage extends BasePage {
 
     public void enterDetails() throws InterruptedException {
         String DOB = GenericFunctionUtil.generateDOB();
+        GenericFunctionUtil.setConfigValue("PatientDOB", DOB);
         String time = GenericFunctionUtil.generateTime();
         String lastName = "Automate";
         String firstName = DOB + "T" + time;
@@ -73,7 +72,8 @@ public class RequestVisitPage extends BasePage {
         GenericFunctionUtil.onClick(genderValue, driver);
         String phoneNumber = GenericFunctionUtil.generateNANPAPhoneNumber();
         GenericFunctionUtil.sendKeys(PrimaryPhone, phoneNumber, driver);
-        patientEmail = lastName + firstName + "@mailinator.com";
+        String patientEmail = lastName + firstName + "@mailinator.com";
+        GenericFunctionUtil.setConfigValue("caregiverEmail", patientEmail);
         GenericFunctionUtil.sendKeys(PatientEmailAddress, patientEmail, driver );
     }
 

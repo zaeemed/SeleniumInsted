@@ -13,7 +13,7 @@ public class ConfigWriter {
 
         try (FileOutputStream outputStream = new FileOutputStream("config.properties")) {
             properties.store(outputStream, "Configuration Properties");
-            System.out.println("Configuration file created successfully!");
+            System.out.println("Configuration file created/updated successfully!");
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException("Failed to write to configuration file.");

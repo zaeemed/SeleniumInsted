@@ -8,10 +8,10 @@ import io.cucumber.junit.CucumberOptions;
 @CucumberOptions(
         features = "src/test/resources/features",
         glue = {"steps"},
-        tags = "@CaregiverGuestRequest",
+        tags = "@GuestFlow",
         plugin = {"pretty", "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm",
-                    "html:target/cucumber-reports.html",
-                    "json:target/cucumber-reports.json"},
+                    "html:target/reports/cucumber-reports.html",
+                    "json:target/reports/cucumber-reports.json"},
         monochrome = true
 )
 public class TestRunner {

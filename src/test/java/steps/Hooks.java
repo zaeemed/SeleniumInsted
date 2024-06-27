@@ -11,9 +11,12 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.io.FileHandler;
 import utils.GenericFunctionUtil;
+import utils.ScreenshotUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Objects;
 
 public class Hooks {
@@ -37,10 +40,13 @@ public class Hooks {
     @After
     public void tearDown(Scenario scenario) throws IOException {
         if (scenario.isFailed()) {
-            // Take screenshot only on failure
-            File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-            String screenshotName = scenario.getName() + "-screenshot.png";
-            FileHandler.copy(screenshot, new File("target/screenshots/" + screenshotName));
+            String screenshotPath = ScreenshotUtil.captureScreenshot(driver, scenario.getName());
+            try {
+                byte[] screenshot = Files.readAllBytes(Paths.get(screenshotPath));
+                scenario.attach(screenshot, "image/png", scenario.getName());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         if (driver != null) {
             driver.quit();

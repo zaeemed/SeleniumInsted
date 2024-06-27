@@ -60,12 +60,12 @@ public class StepDefinitions {
         Assert.assertEquals("Message is different, Assertion failed", text, message);
     }
 
-    @And("User enters {string} details")
-    public void entersDetails(String persona) throws InterruptedException {
+    @And("User enters {string} details with relation {string}")
+    public void entersDetails(String persona, String relation) throws InterruptedException {
         requestVisitPage.enterDetails();
         if(persona.contains("caregiver")){
             patientInformationPage = new PatientInformationPage(driver);
-            patientInformationPage.enterCaregiverDetails();
+            patientInformationPage.enterCaregiverDetails(relation);
         }
     }
 

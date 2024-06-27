@@ -9,7 +9,6 @@ public class ConfigWriter {
     public static void writeConfig(String key, String value) {
         Properties properties = new Properties();
 
-        // Set properties key-value pairs
         properties.setProperty(key, value);
 
         try (FileOutputStream outputStream = new FileOutputStream("config.properties")) {

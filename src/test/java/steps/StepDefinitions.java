@@ -29,12 +29,12 @@ public class StepDefinitions {
     }
 
     @When("User clicks on {string} pill")
-    public void userClicks(String flowName) throws InterruptedException {
+    public void clickPill(String flowName) throws InterruptedException {
         welcomePage.selectRequesterPill(flowName);
     }
 
     @And("User enters insurance {string}")
-    public void userTextInput(String insurance) throws InterruptedException {
+    public void textInput(String insurance) throws InterruptedException {
         welcomePage.enterValue(insurance);
     }
 
@@ -46,7 +46,7 @@ public class StepDefinitions {
     }
 
     @And("User enters address {string}")
-    public void userEntersAddress(String address) throws InterruptedException {
+    public void enterAddress(String address) throws InterruptedException {
         addressPage.enterAddress(address);
     }
 
@@ -61,7 +61,7 @@ public class StepDefinitions {
     }
 
     @And("User enters {string} details")
-    public void userEntersPatientDetails(String persona) throws InterruptedException {
+    public void entersDetails(String persona) throws InterruptedException {
         requestVisitPage.enterDetails();
         if(persona.contains("caregiver")){
             patientInformationPage = new PatientInformationPage(driver);
@@ -70,7 +70,7 @@ public class StepDefinitions {
     }
 
     @And("User clicks on Submit Button")
-    public void userClicksOnSubmitButton() throws InterruptedException {
+    public void clicksSubmit() throws InterruptedException {
         requestVisitPage.submitRequestButton();
     }
 

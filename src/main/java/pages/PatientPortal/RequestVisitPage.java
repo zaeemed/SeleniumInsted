@@ -59,7 +59,6 @@ public class RequestVisitPage extends BasePage {
 
     public void enterDetails() throws InterruptedException {
         String DOB = GenericFunctionUtil.generateDOB();
-        GenericFunctionUtil.setConfigValue("PatientDOB", DOB);
         String time = GenericFunctionUtil.generateTime();
         String lastName = "Automate";
         String firstName = DOB + "T" + time;
@@ -73,8 +72,11 @@ public class RequestVisitPage extends BasePage {
         String phoneNumber = GenericFunctionUtil.generateNANPAPhoneNumber();
         GenericFunctionUtil.sendKeys(PrimaryPhone, phoneNumber, driver);
         String patientEmail = lastName + firstName + "@mailinator.com";
-        GenericFunctionUtil.setConfigValue("caregiverEmail", patientEmail);
-        GenericFunctionUtil.sendKeys(PatientEmailAddress, patientEmail, driver );
+        GenericFunctionUtil.sendKeys(PatientEmailAddress, patientEmail, driver);
+        GenericFunctionUtil.setConfigValue("patientEmail", patientEmail);
+        GenericFunctionUtil.setConfigValue("patientFirstName", firstName);
+        GenericFunctionUtil.setConfigValue("patientLastName", lastName);
+        GenericFunctionUtil.setConfigValue("PatientDOB", DOB);
     }
 
     public void submitRequestButton() throws InterruptedException {

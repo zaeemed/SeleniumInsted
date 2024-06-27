@@ -40,6 +40,11 @@ public class Hooks {
             // Take screenshot only on failure
             File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
             String screenshotName = scenario.getName() + "-screenshot.png";
+            // Create screenshots folder if it doesn't exist
+            File screenshotDir = new File("target/screenshots");
+            if (!screenshotDir.exists()) {
+                screenshotDir.mkdirs(); // Creates all necessary directories
+            }
             FileHandler.copy(screenshot, new File("target/screenshots/" + screenshotName));
         }
         if (driver != null) {

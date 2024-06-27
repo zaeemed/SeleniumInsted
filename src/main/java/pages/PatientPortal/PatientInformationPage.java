@@ -28,14 +28,14 @@ public class PatientInformationPage extends BasePage {
         super(driver);
     }
 
-    public void enterCaregiverDetails() throws InterruptedException {
+    public void enterCaregiverDetails(String relation) throws InterruptedException {
         String DOB = GenericFunctionUtil.generateDOB();
         String time = GenericFunctionUtil.generateTime();
         String lastName = "Automate";
         String firstName = DOB + "T" + time;
 
         GenericFunctionUtil.onClick(PatientRelation, driver);
-        String relationXpath = GenericFunctionUtil.formatString("//mat-option[.//span[text()='%s']]", " Brother ");
+        String relationXpath = GenericFunctionUtil.formatString("//mat-option[.//span[text()='%s']]", relation);
         WebElement relationValue = driver.findElement(By.xpath(relationXpath));
         GenericFunctionUtil.onClick(relationValue, driver);
 
@@ -45,6 +45,7 @@ public class PatientInformationPage extends BasePage {
         GenericFunctionUtil.sendKeys(CgPrimaryPhone, phoneNumber, driver);
         String caregiverEmail = lastName + firstName + "@mailinator.com";
         GenericFunctionUtil.setConfigValue("caregiverEmail", caregiverEmail);
+        GenericFunctionUtil.setConfigValue("caregiverRelation", relation);
         GenericFunctionUtil.sendKeys(CaregiverEmailAddress, caregiverEmail, driver );
     }
 }

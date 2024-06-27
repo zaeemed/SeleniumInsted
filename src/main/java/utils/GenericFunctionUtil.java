@@ -43,10 +43,6 @@ public class GenericFunctionUtil {
         waitInvisibility(driver);
         element.sendKeys(text);
     }
-    public static void selectValue(WebElement element, String value, WebDriver driver){
-        Select dropdown = new Select(element);
-        dropdown.selectByVisibleText(value);
-    }
     public static void clickEnter(WebElement element) throws InterruptedException {
         Thread.sleep(3000);
         element.sendKeys(Keys.DOWN);

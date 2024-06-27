@@ -37,24 +37,6 @@ public class Hooks {
         }
     }
 
-//    @After
-//    public void tearDown(Scenario scenario) throws IOException {
-//        if (scenario.isFailed()) {
-//            // Take screenshot only on failure
-//            File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-//            String screenshotName = scenario.getName() + "-screenshot.png";
-//            // Create screenshots folder if it doesn't exist
-//            File screenshotDir = new File("target/screenshots");
-//            if (!screenshotDir.exists()) {
-//                screenshotDir.mkdirs(); // Creates all necessary directories
-//            }
-//            FileHandler.copy(screenshot, new File("target/screenshots/" + screenshotName));
-//        }
-//        if (driver != null) {
-//            driver.quit();
-//        }
-//    }
-
     @After
     public void tearDown(Scenario scenario) throws IOException {
         if (scenario.isFailed()) {

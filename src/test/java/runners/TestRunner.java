@@ -8,7 +8,7 @@ import io.cucumber.junit.CucumberOptions;
 @CucumberOptions(
         features = "src/test/resources/features",
         glue = {"steps"},
-        tags = "@GuestFlow",
+        tags = "@GuestPatientPortalFlow",
         plugin = {"pretty", "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm",
                     "html:target/reports/cucumber-reports.html",
                     "json:target/reports/cucumber-reports.json"},

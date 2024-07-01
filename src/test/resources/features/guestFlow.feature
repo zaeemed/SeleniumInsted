@@ -1,7 +1,7 @@
 Feature: Guest Flow feature
 
   @PatientGuestRequest @GuestFlow
-  Scenario: Successful guest flow of the patient visit
+  Scenario: Successful patient guest visit flow
     Given User is on welcome screen
     When User clicks on "I am a Patient" pill
     And User enters insurance "CCA-ICO"
@@ -13,7 +13,7 @@ Feature: Guest Flow feature
     Then User is on Thank you screen
 
   @CaregiverGuestRequest @GuestFlow
-  Scenario: Successful guest flow of the caregiver visit
+  Scenario: Successful caregiver guest visit flow
     Given User is on welcome screen
     When User clicks on "I take care of a Patient" pill
     And User enters insurance "CCA-ICO"

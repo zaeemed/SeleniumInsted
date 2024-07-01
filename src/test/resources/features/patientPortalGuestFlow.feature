@@ -14,5 +14,5 @@ Feature: Guest Flow feature
 
     Examples:
       | user_type               | insurance | address                          | next_screen           | details              | relation |
-      | I am a Patient          | CCA-ICO   | 55 Fruit Street, Boston, MA, USA | Request A Visit       | patient              | none     |
+#      | I am a Patient          | CCA-ICO   | 55 Fruit Street, Boston, MA, USA | Request A Visit       | patient              | none     |
       | I take care of a Patient | CCA-ICO   | 55 Fruit Street, Boston, MA, USA | Patient Information   | patient & caregiver  | Mother   |

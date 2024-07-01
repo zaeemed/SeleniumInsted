@@ -122,6 +122,36 @@
         </configuration>
       </plugin>
 
+      <plugin>
+        <groupId>io.qameta.allure</groupId>
+        <artifactId>allure-maven</artifactId>
+        <version>2.10.0</version>
+        <configuration>
+          <resultsDirectory>../allure-results</resultsDirectory>
+          <reportDirectory>${project.build.directory}/site/allure-report</reportDirectory>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>report</goal>
+              <goal>aggregate</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Maven Surefire plugin for running tests -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.22.2</version>
+        <configuration>
+          <includes>
+            <include>**/TestRunner.java</include>
+          </includes>
+        </configuration>
+      </plugin>
+
       <!-- Maven compiler plugin for specifying Java version -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -134,5 +164,12 @@
       </plugin>
     </plugins>
   </build>
+
+  <repositories>
+    <repository>
+      <id>central</id>
+      <url>https://repo.maven.apache.org/maven2</url>
+    </repository>
+  </repositories>
 
 </project>
